@@ -1,7 +1,7 @@
 # YelpCamp
 Installation
 
-Clone the repository Blog-App
+Clone the repository YelpCamp
 
 Enter the directory using terminal
 
