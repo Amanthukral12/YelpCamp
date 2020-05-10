@@ -2,7 +2,9 @@ var express = require("express"),
 	app = express(),
 	port= 3000,
 	bodyParser=require("body-parser"),
-	mongoose = require("mongoose")
+	mongoose = require("mongoose"),
+	Campground =require("./models/campground"),
+	seedDB= require("./seeds")
 
  
 mongoose
@@ -13,28 +15,10 @@ useNewUrlParser: true,
 app.use(bodyParser.urlencoded({extended: true})); 
 
 app.set("view engine","ejs");
+seedDB();
 
-var campgroundSchema = new mongoose.Schema({
-	name: String,
-	image: String,
-	description: String
-});
 
-var Campground=mongoose.model("Campground",campgroundSchema);
 
-// Campground.create({
-// 	name: "Aman",
-// 	image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRI1r68jk04-6RcQWg4BAj-9XRIYW1QHFrRN-JF7BTpBGFs6DbG&usqp=CAU",
-// 	description:"this is a drawing of a silly face" 
-// },
-// function(err,campground) {
-// 	if(err){
-// 		console.log(err);
-// 	} else {
-// 		console.log("newly created");
-// 		console.log(campground);
-// 	}
-// });	
 app.get("/",function(req,res){
 	res.render("landing");	
 });
@@ -44,13 +28,13 @@ app.get("/campgrounds", function(req,res) {
 		if(err){
 			console.log(err);
 		} else {
-			res.render("index",{campgrounds:allCampgrounds});		
+			res.render("campgrounds/index",{campgrounds:allCampgrounds});		
 		}
 	});
 	
 });
 app.get("/campgrounds/new", function(req,res){
-	res.render("new");
+	res.render("campgrounds/new");
 })
 
 app.post("/campgrounds", function(req,res){
@@ -69,14 +53,27 @@ app.post("/campgrounds", function(req,res){
 });
 
 app.get("/campgrounds/:id", function(req,res) {
-	Campground.findById(req.params.id, function (err, foundCampground) {
+	Campground.findById(req.params.id).populate("comments").exec(function (err, foundCampground) {
 		if (err) {
 			console.log(err);
 		} else {
-			res.render("show",{campground: foundCampground});
+			//console.log(foundCampground);
+			res.render("campgrounds/show",{campground: foundCampground});
 		}
 	});
 });
+
+//==================
+app.get("/campgrounds/:id/comments/new",function(req,res){
+	Campground.findById(req.params.id, function(err,campground){
+		if(err){
+			console.log(err);
+		} else{
+			res.render("comments/new", {campground: campground});
+		}
+	})
+	
+})
 
 app.listen(port, function function_name() {
 	console.log("the yelpcamp server has started!");
