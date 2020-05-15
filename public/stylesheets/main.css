@@ -2,6 +2,10 @@
 	width: 100%;
 }
 
+.icon{
+    font-size: 2em;
+}
+
 .thumbnail {
 	padding: 0;
 }
