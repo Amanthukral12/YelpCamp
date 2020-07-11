@@ -20,7 +20,7 @@ var commentRoutes = require("./routes/comments"),
 
 mongoose
 	//.connect("mongodb://localhost:27017/yelp_camp", {
-	.connect("mongodb+srv://Aman:Abcd@123@yelpcamp.fdfv5.mongodb.net/<dbname>?retryWrites=true&w=majority", {
+	.connect("mongodb+srv://Aman:Aman1234@yelpcamp.fdfv5.mongodb.net/<dbname>?retryWrites=true&w=majority", {
 		useUnifiedTopology: true,
 		useNewUrlParser: true,
 	});
