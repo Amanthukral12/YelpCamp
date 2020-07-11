@@ -1,7 +1,7 @@
 # YelpCamp
 
 Full stack web dev project
-Visit the link: https://aman-yelpcamp.herokuapp.com/campgrounds
+Visit the link: https://aman-yelpcamp.herokuapp.com
 
 
 # Installation
